@@ -5,7 +5,6 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
-// const generateHTML = require('./src/page-template.js')
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -16,8 +15,11 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+
+const employees1 = [];
 const employees = [];
- 
+
+
 const prompt1 = [             
  {
     type: 'text',
@@ -28,7 +30,7 @@ const prompt1 = [
     type: 'list',
     name: 'role',
     message: 'What is role of this team member?',
-    choices : [ 'Employee', 'Manager', 'Engineer', 'Intern']    
+    choices : ['Manager', 'Engineer', 'Intern']    
  }, 
  {
     type: 'input',
@@ -73,10 +75,29 @@ const prompt1 = [
 inquirer.prompt(prompt1)
     .then((answers) => {
         console.log(answers);
+  
+        const answerArr1 = new Employee(answers.name, answers.role, answers.email, answers.id);
+        employees1.push(answerArr1);
+        console.log(employees1);
+        
 
-        const answerArr = new Employee(answers.name, answers.role, answers.email, answers.id, answers.officeNumber, answers.github, answers.school);
-        employees.push(answerArr);
+        if(answers.officeNumber){
+        const answerArr2 = new Manager(answers.name, answers.role, answers.email, answers.id, answers.officeNumber);
+        employees.push(answerArr2);
         console.log(employees);
+        }
+        //engineeer works 
+        else if(answers.github){
+        const answerArr3 = new Engineer(answers.name, answers.role, answers.email, answers.id, answers.github);
+        employees.push(answerArr3);
+        console.log(employees);
+        }
+        // Intern works
+        else if (answers.school){
+        const answerArr4 = new Intern(answers.name, answers.role, answers.email, answers.id, answers.school);
+        employees.push(answerArr4);
+        console.log(employees);
+        }  
 
         fs.writeFile(outputPath, render(employees), function(error, results){
             if(error) console.log(error);
@@ -85,6 +106,11 @@ inquirer.prompt(prompt1)
     })
 
 
+
+
+    // if (role ==== manager){
+    //     let manager = new Manager(name, role, email, id, officeNumber)
+    //   }
 
 
 
