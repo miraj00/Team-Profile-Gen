@@ -14,6 +14,9 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+
+
 const promptUser = () => {
         return inquirer.prompt([
  {
@@ -39,46 +42,54 @@ const promptUser = () => {
    },
 ])
 
-.then(answers => {
+// .then(answers => {
        
-     if (answers.role === 'Employee') {
-         return promptUser();
-         }
-    else if(answers.role === 'Manager'){
-        return inquirer.prompt([
-       { 
-        type: 'text',
-        name: 'officeNumber',
-        message: 'What is your office number?'
-            }
-         ])
-      }
-    else if (answers.role === 'Engineer'){
-        return inquirer.prompt([
-       { 
-        type: 'text',
-        name: 'github',
-        message: 'What is your GitHub username?'
-            }
-         ])
-      }
-      else if (answers.role === 'Intern'){
-        return inquirer.prompt([
-       { 
-        type: 'text',
-        name: 'school',
-        message: 'Which school do you go to?'
-            }
-         ])
-      }
-})
+//      if(answers.role === 'Manager'){
+//          inquirer.prompt([
+//        { 
+//         type: 'text',
+//         name: 'officeNumber',
+//         message: 'What is your office number?'
+//             }
+//          ])
+//       }
+//     else if (answers.role === 'Engineer'){
+//         inquirer.prompt([
+//        { 
+//         type: 'text',
+//         name: 'github',
+//         message: 'What is your GitHub username?'
+//             }
+//          ])
+//       }
+//       else if (answers.role === 'Intern'){
+//         inquirer.prompt([
+//        { 
+//         type: 'text',
+//         name: 'school',
+//         message: 'Which school do you go to?'
+//             }
+//          ])
+//       }
+// })
 
 }
 
  // promptUser()
- promptUser().then(answers => console.log(answers));   
+ // promptUser().then(answers => console.log(answers));   
 
+ function init() {
+    promptUser()
+    .then(answers => {
+        console.log(answers);
+        fs.writeFile(outputPath, render(answers), err => {
+            if (err) throw err;
+    })
+  })
+}
 
+// Function call to initialize app
+init();
 
 
 
