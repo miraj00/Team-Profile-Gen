@@ -5,6 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
+inquirer.registerPrompt('recursive', require('inquirer-recursive'));
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -19,12 +20,11 @@ const render = require("./lib/htmlRenderer");
 const employees1 = [];
 const employees = [];
 let repeat = true;
-
+// -------------
+const collectInputs = async (inputs = []) => {
+//------------
 const prompt1 = [    
- //   
- employees.push(
-    await inquirer.prompt([
- //
+   
  {
     type: 'text',
     name: 'name',
@@ -73,26 +73,48 @@ const prompt1 = [
     name: 'id',
     message: 'Please Enter ID of the team member :',
 },
-//
-])
-);
-repeat = (
-  await inquirer.prompt([
     {
       type: "confirm",
       name: "repeat",
       message: "Do you want to add another employee ?",
     },
-  ])
-).repeat 
-} while (repeat);
-//
+
+
 
 ]
 
-inquirer.prompt(prompt1)
-    .then((answers) => {
-        console.log(answers);
+const { repeat, ...answers } = await inquirer.prompt(prompt1);
+const newInputs = [...inputs, answers];
+return repeat ? collectInputs(newInputs) : newInputs;
+};
+
+const main = async () => {
+const answers = await collectInputs();
+console.log(answers);
+};
+
+main();
+
+
+
+//
+// ])
+// repeat = (
+//   await inquirer.prompt([
+//     {
+//       type: "confirm",
+//       name: "repeat",
+//       message: "Do you want to add another employee ?",
+//     },
+//   ])
+// ).repeat 
+// } while (repeat);
+//
+
+
+// inquirer.prompt(prompt1)
+    // .then((answers) => {
+    //     console.log(answers);
   
         const answerArr1 = new Employee(answers.name, answers.role, answers.email, answers.id);
         employees1.push(answerArr1);
@@ -125,7 +147,7 @@ inquirer.prompt(prompt1)
             if(error) console.log(error);
         })
 
-    })
+ //   })
 
 
 
