@@ -18,9 +18,13 @@ const render = require("./lib/htmlRenderer");
 
 const employees1 = [];
 const employees = [];
+let repeat = true;
 
-
-const prompt1 = [             
+const prompt1 = [    
+ //   
+ employees.push(
+    await inquirer.prompt([
+ //
  {
     type: 'text',
     name: 'name',
@@ -68,7 +72,21 @@ const prompt1 = [
     type: 'input',
     name: 'id',
     message: 'Please Enter ID of the team member :',
-   },
+},
+//
+])
+);
+repeat = (
+  await inquirer.prompt([
+    {
+      type: "confirm",
+      name: "repeat",
+      message: "Do you want to add another employee ?",
+    },
+  ])
+).repeat 
+} while (repeat);
+//
 
 ]
 
@@ -99,6 +117,10 @@ inquirer.prompt(prompt1)
         console.log(employees);
         }  
 
+// After the user has input all employees desired, call the `render` function (required
+// above) and pass in an array containing all employee objects; the `render` function will
+// generate and return a block of HTML including templated divs for each employee!
+
         fs.writeFile(outputPath, render(employees), function(error, results){
             if(error) console.log(error);
         })
@@ -108,15 +130,7 @@ inquirer.prompt(prompt1)
 
 
 
-    // if (role ==== manager){
-    //     let manager = new Manager(name, role, email, id, officeNumber)
-    //   }
 
-
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
 
 
 // After you have your html, you're now ready to create an HTML file using the HTML
