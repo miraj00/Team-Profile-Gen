@@ -5,6 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
+// const generateHTML = require('./src/page-template.js')
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -15,10 +16,9 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-
-
-const promptUser = () => {
-        return inquirer.prompt([
+const employees = [];
+ 
+const prompt1 = [             
  {
     type: 'text',
     name: 'name',
@@ -30,6 +30,33 @@ const promptUser = () => {
     message: 'What is role of this team member?',
     choices : [ 'Employee', 'Manager', 'Engineer', 'Intern']    
  }, 
+ {
+    type: 'input',
+    name: 'officeNumber',
+    message: 'What is your office number',
+    when: function( answers ) {
+      // Only run if user answered Manager to the role prompt
+      return answers.role === "Manager";
+        },
+ },
+ {
+    type: 'input',
+    name: 'github',
+    message: 'What is your GitHub username?',
+    when: function( answers ) {
+      // Only run if user answered Engineer to the role prompt
+      return answers.role === "Engineer";
+        },
+ }, 
+ {
+    type: 'input',
+    name: 'school',
+    message: 'Which school do you go to?',
+    when: function( answers ) {
+      // Only run if user answered Intern to the role prompt
+      return answers.role === "Intern";
+        },
+ },              
 {
     type: 'input',
     name: 'email',
@@ -40,56 +67,24 @@ const promptUser = () => {
     name: 'id',
     message: 'Please Enter ID of the team member :',
    },
-])
 
-// .then(answers => {
-       
-//      if(answers.role === 'Manager'){
-//          inquirer.prompt([
-//        { 
-//         type: 'text',
-//         name: 'officeNumber',
-//         message: 'What is your office number?'
-//             }
-//          ])
-//       }
-//     else if (answers.role === 'Engineer'){
-//         inquirer.prompt([
-//        { 
-//         type: 'text',
-//         name: 'github',
-//         message: 'What is your GitHub username?'
-//             }
-//          ])
-//       }
-//       else if (answers.role === 'Intern'){
-//         inquirer.prompt([
-//        { 
-//         type: 'text',
-//         name: 'school',
-//         message: 'Which school do you go to?'
-//             }
-//          ])
-//       }
-// })
+]
 
-}
-
- // promptUser()
- // promptUser().then(answers => console.log(answers));   
-
- function init() {
-    promptUser()
-    .then(answers => {
+inquirer.prompt(prompt1)
+    .then((answers) => {
         console.log(answers);
-        fs.writeFile(outputPath, render(answers), err => {
-            if (err) throw err;
-    })
-  })
-}
 
-// Function call to initialize app
-init();
+        const answerArr = new Employee(answers.name, answers.role, answers.email, answers.id, answers.officeNumber, answers.github, answers.school);
+        employees.push(answerArr);
+        console.log(employees);
+
+        fs.writeFile(outputPath, render(employees), function(error, results){
+            if(error) console.log(error);
+        })
+
+    })
+
+
 
 
 
