@@ -19,9 +19,9 @@ const render = require("./lib/htmlRenderer");
 
 const employees1 = [];
 const employees = [];
-let repeat = true;
+// let repeat = true;
 // -------------
-const collectInputs = async (inputs = []) => {
+
 //------------
 const prompt1 = [    
    
@@ -78,27 +78,26 @@ const prompt1 = [
       name: "repeat",
       message: "Do you want to add another employee ?",
     },
+]  
 
+//--------------------------------
 
+// function someFunction(){
+//     inquirer.prompt([
+//     {
+//           type: "confirm",
+//           name: "repeat",
+//           message: "Do you want to add another employee ?",
+//         },
+//     ]).then(
+//       if (answer.repeat === yes){
+//         someFunction() 
+//     }
+//     )
+//     }
 
-]
-
-const { repeat, ...answers } = await inquirer.prompt(prompt1);
-const newInputs = [...inputs, answers];
-return repeat ? collectInputs(newInputs) : newInputs;
-};
-
-const main = async () => {
-const answers = await collectInputs();
-console.log(answers);
-};
-
-main();
-
-
-
-//
-// ])
+//-----------------------------
+ 
 // repeat = (
 //   await inquirer.prompt([
 //     {
@@ -108,14 +107,15 @@ main();
 //     },
 //   ])
 // ).repeat 
-// } while (repeat);
-//
+//  while (repeat);
 
 
-// inquirer.prompt(prompt1)
-    // .then((answers) => {
-    //     console.log(answers);
+
+inquirer.prompt(prompt1)
+    .then((answers) => {
+        console.log(answers);
   
+   
         const answerArr1 = new Employee(answers.name, answers.role, answers.email, answers.id);
         employees1.push(answerArr1);
         console.log(employees1);
@@ -125,18 +125,21 @@ main();
         const answerArr2 = new Manager(answers.name, answers.role, answers.email, answers.id, answers.officeNumber);
         employees.push(answerArr2);
         console.log(employees);
+//        inquirer.prompt(prompt1)
         }
         //engineeer works 
         else if(answers.github){
         const answerArr3 = new Engineer(answers.name, answers.role, answers.email, answers.id, answers.github);
         employees.push(answerArr3);
         console.log(employees);
+        prompt1;
         }
         // Intern works
         else if (answers.school){
         const answerArr4 = new Intern(answers.name, answers.role, answers.email, answers.id, answers.school);
         employees.push(answerArr4);
         console.log(employees);
+        prompt1;
         }  
 
 // After the user has input all employees desired, call the `render` function (required
@@ -147,7 +150,7 @@ main();
             if(error) console.log(error);
         })
 
- //   })
+    })
 
 
 
