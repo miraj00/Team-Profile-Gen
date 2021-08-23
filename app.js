@@ -4,6 +4,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const Employee = require("./lib/Employee");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -35,13 +36,48 @@ const promptUser = () => {
     type: 'input',
     name: 'id',
     message: 'Please Enter ID of the team member :',
+   },
+])
+
+.then(answers => {
+       
+     if (answers.role === 'Employee') {
+         return promptUser();
+         }
+    else if(answers.role === 'Manager'){
+        return inquirer.prompt([
+       { 
+        type: 'text',
+        name: 'officeNumber',
+        message: 'What is your office number?'
+            }
+         ])
+      }
+    else if (answers.role === 'Engineer'){
+        return inquirer.prompt([
+       { 
+        type: 'text',
+        name: 'github',
+        message: 'What is your GitHub username?'
+            }
+         ])
+      }
+      else if (answers.role === 'Intern'){
+        return inquirer.prompt([
+       { 
+        type: 'text',
+        name: 'school',
+        message: 'Which school do you go to?'
+            }
+         ])
+      }
+})
+
 }
-]);
-};
 
-// promptUser().then(answers => console.log(answers));
+ // promptUser()
+ promptUser().then(answers => console.log(answers));   
 
-promptUser().then(answers => Employee(answers));
 
 
 
@@ -66,4 +102,5 @@ promptUser().then(answers => Employee(answers));
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
+//
