@@ -58,6 +58,7 @@ You can use this application to generate Team Profile in HTML file. Once you fol
   
 
 ## Demo of how to install, answer Questionairre and Use the output of HTML file :
+
 https://user-images.githubusercontent.com/84084583/130688928-3b4f4bcb-c0ae-46bc-b9a2-84f21516067f.mp4
 
 ## Screenshot of the Project :
