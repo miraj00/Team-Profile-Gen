@@ -47,15 +47,18 @@ Team-Profile_gen is node.js based object-oriented-programming (OOP).It works by 
  6. Once above steps are done, the application is ready to use.
 
 ## How to use application : 
-You can use this application to generate Team Profile in HTML file. Once you follow the installation process as described above, go to command line and enter ' node index.js ' and it will go thru questionairie about team member name, Role, ID, Email, and Office number (if Manager), Github Username (if Engineer) and school name (if Intern). You will be allowed to input multiple entries for employees. Upon finishing that questionairie it will generate " team.html " in output folder.
+You can use this application to generate Team Profile in HTML file. Once you follow the installation process as described above,
+ 
+ 1. You can verify if test passes by typing : " npm run test " in command line
+
+ 2. You can start Questionairrie by going to command line and enter ' node index.js '.
+ 
+ 3. This will go thru questionairie about team member name, Role, ID, Email, and Office number (if Manager), Github Username (if Engineer) and school name (if Intern). You will be allowed to input multiple entries for employees. 
+ 4. Upon finishing that questionairie it will generate " team.html " in " output folder ".
   
 
 ## Demo of how to install, answer Questionairre and Use the output of HTML file :
-<<<<<<< HEAD
-=======
-
->>>>>>> 417ce58ad683131a2210916c71493457fef45d18
-https://user-images.githubusercontent.com/84084583/130676436-9e9c28b7-006c-41e1-b176-9329f9e724db.mp4
+https://user-images.githubusercontent.com/84084583/130688928-3b4f4bcb-c0ae-46bc-b9a2-84f21516067f.mp4
 
 ## Screenshot of the Project :
 
