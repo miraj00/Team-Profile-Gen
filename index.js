@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
-inquirer.registerPrompt("recursive", require("inquirer-recursive"));
+// inquirer.registerPrompt("recursive", require("inquirer-recursive"));
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -146,7 +146,8 @@ var secondPrompt = () => {
       employees.push(answerArr2);
 //    console.log(employees);
       firstPrompt();    }
-    //engineeer works
+    
+    
     else if (answers.github) {
       const answerArr3 = new Engineer(
         answers.name,
@@ -159,7 +160,7 @@ var secondPrompt = () => {
 //    console.log(employees);
       firstPrompt();
     }
-    // Intern works
+    
     else if (answers.school) {
       const answerArr4 = new Intern(
         answers.name,
